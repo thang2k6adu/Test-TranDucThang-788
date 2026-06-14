@@ -18,7 +18,7 @@ export function VideoCard({
   onToggleLike,
 }: VideoCardProps) {
   return (
-    <article className="relative flex h-full min-h-full w-full snap-start snap-always items-center justify-center bg-black">
+    <article className="relative flex h-full min-h-full w-full snap-start snap-always items-center justify-center bg-muted">
       <div className="relative h-full w-full overflow-hidden md:h-auto md:max-h-full md:w-auto md:max-w-[480px] md:aspect-[9/16] md:rounded-xl md:shadow-2xl md:shadow-black/50">
         <VideoPlayer src={video.videoUrl} />
         <VideoOverlay

@@ -3,12 +3,15 @@
 import {
   LuChevronDown as ChevronDown,
   LuLogOut as LogOut,
+  LuMoon,
+  LuSun,
   LuUser as UserIcon,
 } from "react-icons/lu";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/store/hooks";
 import { logoutThunk } from "@/store/thunks/authThunks";
 import { ROUTES } from "@/constants";
+import { useTheme } from "@/hooks/useTheme";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -29,10 +32,24 @@ type HeaderProps = {
 export function Header({ user }: HeaderProps) {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const { toggle, isDark } = useTheme();
 
   return (
-    <header className="sticky top-0 z-20 border-b bg-white">
-      <div className="flex items-center justify-end gap-4 px-6 py-4 md:px-8">
+    <header className="sticky top-0 z-20 border-b bg-background">
+      <div className="flex items-center justify-end gap-2 px-6 py-4 md:gap-4 md:px-8">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggle}
+          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+        >
+          {isDark ? (
+            <LuSun className="size-5" />
+          ) : (
+            <LuMoon className="size-5" />
+          )}
+        </Button>
+
         <Popover>
           <PopoverTrigger asChild>
             <Button variant="ghost" className="h-auto rounded-full p-2">
@@ -54,13 +71,13 @@ export function Header({ user }: HeaderProps) {
                   </span>
                 </div>
 
-                <ChevronDown className="size-4 text-slate-500" />
+                <ChevronDown className="size-4 text-muted-foreground" />
               </div>
             </Button>
           </PopoverTrigger>
           <PopoverContent className="mr-6 w-56 p-2" align="start">
             <div className="flex flex-col gap-1">
-              <div className="px-2 py-1.5 text-sm font-medium text-slate-500">
+              <div className="px-2 py-1.5 text-sm font-medium text-muted-foreground">
                 Account
               </div>
               <Button
@@ -73,7 +90,7 @@ export function Header({ user }: HeaderProps) {
               </Button>
               <Button
                 variant="ghost"
-                className="w-full justify-start rounded-xl text-sm font-normal text-red-600 hover:bg-red-50 hover:text-red-700"
+                className="w-full justify-start rounded-xl text-sm font-normal text-destructive hover:bg-destructive/10 hover:text-destructive"
                 onClick={async () => {
                   await dispatch(logoutThunk());
                   router.push(ROUTES.LOGIN);

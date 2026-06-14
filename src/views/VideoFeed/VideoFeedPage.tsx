@@ -15,22 +15,22 @@ export default function VideoFeedPage() {
 
   if (isLoading && feed.length === 0) {
     return (
-      <div className="flex h-full min-h-0 items-center justify-center">
-        <div className="size-10 animate-spin rounded-full border-4 border-white/20 border-t-white" />
+      <div className="flex h-full min-h-0 flex-1 items-center justify-center">
+        <div className="size-10 animate-spin rounded-full border-4 border-muted border-t-foreground" />
       </div>
     );
   }
 
   if (feed.length === 0) {
     return (
-      <div className="flex h-full min-h-0 items-center justify-center text-sm text-white/70">
+      <div className="flex h-full min-h-0 flex-1 items-center justify-center text-sm text-muted-foreground">
         Không có video để hiển thị.
       </div>
     );
   }
 
   return (
-    <div className="h-full min-h-0">
+    <div className="h-full min-h-0 flex-1">
       <VideoFeedScroller videos={feed} />
     </div>
   );

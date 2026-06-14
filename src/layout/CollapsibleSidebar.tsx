@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { LuHouse as Home, LuUser as User } from "react-icons/lu";
+import { LuCompass, LuHouse as Home, LuUser as User } from "react-icons/lu";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useRouter, usePathname } from "next/navigation";
@@ -14,6 +14,7 @@ export default function CollapsibleSidebar() {
 
   const navItems = [
     { icon: Home, label: "Home", path: ROUTES.HOME },
+    { icon: LuCompass, label: "Khám phá", path: ROUTES.EXPLORE },
     { icon: User, label: "Profile", path: ROUTES.PROFILE },
   ];
 
@@ -27,7 +28,7 @@ export default function CollapsibleSidebar() {
       onMouseEnter={() => setIsCollapsed(false)}
       onMouseLeave={() => setIsCollapsed(true)}
       className={cn(
-        "relative flex h-screen flex-col border-r bg-white transition-all duration-300 ease-in-out",
+        "relative flex h-screen flex-col border-r border-border bg-background transition-all duration-300 ease-in-out",
         isCollapsed ? "w-20" : "w-64",
       )}
     >
