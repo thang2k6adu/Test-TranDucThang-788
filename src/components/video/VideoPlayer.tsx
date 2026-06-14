@@ -9,32 +9,37 @@ interface VideoPlayerProps {
   className?: string;
 }
 
+interface PlayPauseIndicator {
+  id: number;
+  playing: boolean;
+}
+
 export function VideoPlayer({ src, className }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [showIndicator, setShowIndicator] = useState(false);
+  const [indicator, setIndicator] = useState<PlayPauseIndicator | null>(null);
 
-  const togglePlay = useCallback(async () => {
+  const showIndicator = useCallback((playing: boolean) => {
+    setIndicator({ id: Date.now(), playing });
+  }, []);
+
+  const togglePlay = useCallback(() => {
     const video = videoRef.current;
     if (!video) {
       return;
     }
 
-    try {
-      if (video.paused) {
-        await video.play();
-        setIsPlaying(true);
-      } else {
-        video.pause();
-        setIsPlaying(false);
-      }
-
-      setShowIndicator(true);
-      window.setTimeout(() => setShowIndicator(false), 600);
-    } catch {
-      setIsPlaying(false);
+    if (video.paused) {
+      showIndicator(true);
+      setIsPlaying(true);
+      void video.play().catch(() => setIsPlaying(false));
+      return;
     }
-  }, []);
+
+    video.pause();
+    setIsPlaying(false);
+    showIndicator(false);
+  }, [showIndicator]);
 
   return (
     <div
@@ -62,20 +67,21 @@ export function VideoPlayer({ src, className }: VideoPlayerProps) {
         onPause={() => setIsPlaying(false)}
       />
 
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0 flex items-center justify-center transition-opacity duration-300",
-          showIndicator ? "opacity-100" : "opacity-0",
-        )}
-      >
-        <div className="flex size-16 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm">
-          {isPlaying ? (
-            <LuPause className="size-8 fill-white" />
-          ) : (
-            <LuPlay className="size-8 fill-white" />
-          )}
+      {indicator !== null && (
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <div
+            key={indicator.id}
+            className="flex size-16 transform-gpu items-center justify-center rounded-full bg-black/40 text-white will-change-[transform,opacity] animate-play-pause-pop"
+            onAnimationEnd={() => setIndicator(null)}
+          >
+            {indicator.playing ? (
+              <LuPlay className="size-8 fill-white" />
+            ) : (
+              <LuPause className="size-8 fill-white" />
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

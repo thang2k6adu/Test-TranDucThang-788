@@ -9,7 +9,6 @@ export default function VideoFeedPage() {
 
   useEffect(() => {
     void fetchFeed();
-    // Mount-only fetch; fetchFeed identity changes each render from useVideo.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
