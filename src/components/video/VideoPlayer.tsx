@@ -14,13 +14,42 @@ interface PlayPauseIndicator {
   playing: boolean;
 }
 
+type VideoFitMode = "cover" | "contain";
+
+const FRAME_ASPECT_RATIO = 9 / 16;
+
+const getVideoFitMode = (width: number, height: number): VideoFitMode => {
+  if (width <= 0 || height <= 0) {
+    return "cover";
+  }
+
+  const videoAspectRatio = width / height;
+
+  // Wider than the 9:16 frame — letterbox instead of cropping sides.
+  if (videoAspectRatio > FRAME_ASPECT_RATIO * 1.05) {
+    return "contain";
+  }
+
+  return "cover";
+};
+
 export function VideoPlayer({ src, className }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [indicator, setIndicator] = useState<PlayPauseIndicator | null>(null);
+  const [fitMode, setFitMode] = useState<VideoFitMode>("cover");
 
   const showIndicator = useCallback((playing: boolean) => {
     setIndicator({ id: Date.now(), playing });
+  }, []);
+
+  const handleLoadedMetadata = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) {
+      return;
+    }
+
+    setFitMode(getVideoFitMode(video.videoWidth, video.videoHeight));
   }, []);
 
   const togglePlay = useCallback(() => {
@@ -55,20 +84,37 @@ export function VideoPlayer({ src, className }: VideoPlayerProps) {
         }
       }}
     >
+      {fitMode === "contain" && (
+        <video
+          aria-hidden
+          src={src}
+          className="pointer-events-none absolute inset-0 h-full w-full scale-110 object-cover opacity-40 blur-2xl"
+          loop
+          playsInline
+          muted
+          preload="metadata"
+          tabIndex={-1}
+        />
+      )}
+
       <video
         ref={videoRef}
         src={src}
-        className="h-full w-full object-cover"
+        className={cn(
+          "relative z-10 h-full w-full",
+          fitMode === "cover" ? "object-cover" : "object-contain",
+        )}
         loop
         playsInline
         muted
         preload="metadata"
+        onLoadedMetadata={handleLoadedMetadata}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
       />
 
       {indicator !== null && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center">
           <div
             key={indicator.id}
             className="flex size-16 transform-gpu items-center justify-center rounded-full bg-black/40 text-white will-change-[transform,opacity] animate-play-pause-pop"
