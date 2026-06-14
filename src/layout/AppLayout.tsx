@@ -24,17 +24,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
       <CollapsibleSidebar />
 
       <main className="flex min-h-0 flex-1 flex-col">
-        <Header
-          user={
-            user
-              ? {
-                  name: getDisplayName(user),
-                  initials: getInitials(user),
-                  avatar: user.avatar ?? undefined,
-                }
-              : undefined
-          }
-        />
+        {!isExplore && (
+          <Header
+            user={
+              user
+                ? {
+                    name: getDisplayName(user),
+                    initials: getInitials(user),
+                    avatar: user.avatar ?? undefined,
+                  }
+                : undefined
+            }
+          />
+        )}
         <section
           className={cn(
             "flex min-h-0 flex-1 flex-col",
