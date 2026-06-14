@@ -8,6 +8,8 @@ interface VideoActionRailProps {
   isLiked?: boolean;
   isLiking?: boolean;
   onToggleLike?: () => void;
+  compact?: boolean;
+  className?: string;
 }
 
 export function VideoActionRail({
@@ -15,14 +17,26 @@ export function VideoActionRail({
   isLiked = false,
   isLiking = false,
   onToggleLike,
+  compact = false,
+  className,
 }: VideoActionRailProps) {
+  const iconSize = compact ? "size-7" : "size-9";
+
   return (
-    <div className="flex flex-col items-center gap-6 pb-2 text-white">
+    <div
+      className={cn(
+        "flex flex-col items-center pb-2 text-white",
+        compact ? "gap-4" : "gap-6",
+        className,
+      )}
+    >
       <ActionButton
+        compact={compact}
         icon={
           <LuHeart
             className={cn(
-              "size-9 transition-colors",
+              iconSize,
+              "transition-colors",
               isLiked ? "fill-[#fe2c55] text-[#fe2c55]" : "text-white",
             )}
           />
@@ -38,21 +52,24 @@ export function VideoActionRail({
       />
 
       <ActionButton
-        icon={<LuMessageCircle className="size-9 text-white" />}
+        compact={compact}
+        icon={<LuMessageCircle className={cn(iconSize, "text-white")} />}
         label="0"
         ariaLabel="Comments"
         onClick={(event) => event.stopPropagation()}
       />
 
       <ActionButton
-        icon={<LuBookmark className="size-9 text-white" />}
+        compact={compact}
+        icon={<LuBookmark className={cn(iconSize, "text-white")} />}
         label="0"
         ariaLabel="Save video"
         onClick={(event) => event.stopPropagation()}
       />
 
       <ActionButton
-        icon={<LuShare2 className="size-9 text-white" />}
+        compact={compact}
+        icon={<LuShare2 className={cn(iconSize, "text-white")} />}
         label="Share"
         ariaLabel="Share video"
         onClick={(event) => event.stopPropagation()}
@@ -65,6 +82,7 @@ interface ActionButtonProps {
   icon: React.ReactNode;
   label: string;
   active?: boolean;
+  compact?: boolean;
   disabled?: boolean;
   ariaLabel: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -74,6 +92,7 @@ function ActionButton({
   icon,
   label,
   active,
+  compact = false,
   disabled,
   ariaLabel,
   onClick,
@@ -85,7 +104,8 @@ function ActionButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "flex flex-col items-center gap-1.5 text-sm font-semibold text-white transition-opacity",
+        "flex flex-col items-center gap-1.5 font-semibold text-white transition-opacity",
+        compact ? "text-xs" : "text-sm",
         disabled && "opacity-60",
         active && "text-[#fe2c55]",
       )}

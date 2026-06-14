@@ -20,27 +20,35 @@ export const VideoCard = forwardRef<HTMLElement, VideoCardProps>(
     { video, isActive = false, isLiked, isLiking, onToggleLike },
     ref,
   ) {
+    const actionRailProps = {
+      likesCount: video.likesCount,
+      isLiked,
+      isLiking,
+      onToggleLike,
+    };
+
     return (
       <article
         ref={ref}
         data-video-id={video.id}
         className="relative flex h-full min-h-full w-full shrink-0 snap-start snap-always items-center justify-center bg-black"
       >
-        <div className="flex h-full items-end gap-3 py-2 md:gap-4 md:py-2">
-          <VideoFrame>
+        <div className="relative flex h-full w-full justify-center md:items-end md:gap-4 md:py-2">
+          <VideoFrame className="h-full w-full max-w-none rounded-none md:max-w-[480px] md:rounded-xl lg:max-w-[560px]">
             <VideoPlayer src={video.videoUrl} isActive={isActive} />
             <VideoOverlay
               authorName={video.authorName}
               description={video.description}
             />
+
+            <aside className="absolute bottom-20 right-3 z-30 md:hidden">
+              <VideoActionRail {...actionRailProps} compact />
+            </aside>
           </VideoFrame>
 
-          <VideoActionRail
-            likesCount={video.likesCount}
-            isLiked={isLiked}
-            isLiking={isLiking}
-            onToggleLike={onToggleLike}
-          />
+          <aside className="hidden shrink-0 md:block">
+            <VideoActionRail {...actionRailProps} />
+          </aside>
         </div>
       </article>
     );
