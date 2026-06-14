@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  LuBookmark,
-  LuHeart,
-  LuMessageCircle,
-  LuShare2,
-} from "react-icons/lu";
+import { LuBookmark, LuHeart, LuMessageCircle, LuShare2 } from "react-icons/lu";
 import { cn, formatCount } from "@/lib/utils";
 
 interface VideoActionRailProps {
@@ -22,12 +17,12 @@ export function VideoActionRail({
   onToggleLike,
 }: VideoActionRailProps) {
   return (
-    <div className="flex flex-col items-center gap-5 pb-6 text-white">
+    <div className="flex flex-col items-center gap-6 pb-2 text-white">
       <ActionButton
         icon={
           <LuHeart
             className={cn(
-              "size-7 transition-colors",
+              "size-9 transition-colors",
               isLiked ? "fill-[#fe2c55] text-[#fe2c55]" : "text-white",
             )}
           />
@@ -43,21 +38,21 @@ export function VideoActionRail({
       />
 
       <ActionButton
-        icon={<LuMessageCircle className="size-7 text-white" />}
+        icon={<LuMessageCircle className="size-9 text-white" />}
         label="0"
         ariaLabel="Comments"
         onClick={(event) => event.stopPropagation()}
       />
 
       <ActionButton
-        icon={<LuBookmark className="size-7 text-white" />}
+        icon={<LuBookmark className="size-9 text-white" />}
         label="0"
         ariaLabel="Save video"
         onClick={(event) => event.stopPropagation()}
       />
 
       <ActionButton
-        icon={<LuShare2 className="size-7 text-white" />}
+        icon={<LuShare2 className="size-9 text-white" />}
         label="Share"
         ariaLabel="Share video"
         onClick={(event) => event.stopPropagation()}
@@ -90,7 +85,7 @@ function ActionButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "flex flex-col items-center gap-1 text-xs font-semibold text-white transition-opacity",
+        "flex flex-col items-center gap-1.5 text-sm font-semibold text-white transition-opacity",
         disabled && "opacity-60",
         active && "text-[#fe2c55]",
       )}

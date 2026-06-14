@@ -12,7 +12,7 @@ export function VideoFrame({ children, className }: VideoFrameProps) {
   return (
     <div
       className={cn(
-        "relative aspect-[9/16] h-full max-h-full w-auto max-w-[480px] overflow-hidden rounded-xl shadow-2xl shadow-black/50",
+        "relative aspect-[9/16] sm:max-w-[520px] lg:max-w-[560px] h-full max-h-full w-auto max-w-[480px] overflow-hidden rounded-xl",
         className,
       )}
     >

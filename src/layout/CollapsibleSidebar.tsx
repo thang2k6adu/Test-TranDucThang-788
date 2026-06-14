@@ -5,8 +5,6 @@ import {
   LuCompass,
   LuHouse as Home,
   LuLogOut as LogOut,
-  LuMoon,
-  LuSun,
   LuUser as User,
   LuUser as UserIcon,
 } from "react-icons/lu";
@@ -22,7 +20,6 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { logoutThunk } from "@/store/thunks/authThunks";
 import { ROUTES } from "@/constants";
-import { useTheme } from "@/hooks/useTheme";
 import { getDisplayName, getInitials } from "@/types/user";
 
 export default function CollapsibleSidebar() {
@@ -31,7 +28,6 @@ export default function CollapsibleSidebar() {
   const pathname = usePathname();
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.auth);
-  const { toggle, isDark } = useTheme();
 
   const displayName = user ? getDisplayName(user) : "Guest";
   const initials = user ? getInitials(user) : "G";
@@ -92,25 +88,6 @@ export default function CollapsibleSidebar() {
           isCollapsed && "items-center",
         )}
       >
-        <Button
-          variant="ghost"
-          size={isCollapsed ? "icon" : "default"}
-          onClick={toggle}
-          className={cn(!isCollapsed && "w-full justify-start")}
-          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-        >
-          {isDark ? (
-            <LuSun className="size-5" />
-          ) : (
-            <LuMoon className="size-5" />
-          )}
-          {!isCollapsed && (
-            <span className="ml-3 text-sm font-medium">
-              {isDark ? "Light mode" : "Dark mode"}
-            </span>
-          )}
-        </Button>
-
         <Popover>
           <PopoverTrigger asChild>
             <Button

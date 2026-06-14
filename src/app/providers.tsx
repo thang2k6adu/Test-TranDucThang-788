@@ -6,15 +6,12 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Toaster } from "react-hot-toast";
 import { store, persistor } from "@/store";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { useTheme } from "@/hooks/useTheme";
 import "@/config/i18n";
 
 function AppEffects({ children }: { children: React.ReactNode }) {
-  const { theme } = useTheme();
-
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-  }, [theme]);
+    document.documentElement.classList.add("dark");
+  }, []);
 
   return <>{children}</>;
 }
