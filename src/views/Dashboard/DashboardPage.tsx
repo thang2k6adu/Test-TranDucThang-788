@@ -9,7 +9,7 @@ export default function HomePage() {
         <a href="/explore" className="font-medium text-foreground underline">
           Khám phá
         </a>{" "}
-        để xem feed video dọc kiểu TikTok.
+        để xem thêm.
       </p>
     </div>
   );
