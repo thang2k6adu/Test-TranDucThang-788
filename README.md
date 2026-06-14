@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Focus Hub — Next.js Boilerplate
 
-## Getting Started
+Next.js 16 App Router starter based on `pp191225_web` stack.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** + React 19 + App Router
+- **Redux Toolkit** + Redux Persist (SSR-safe storage)
+- **Tailwind CSS v3** + shadcn/ui
+- **Axios** + Firebase Auth + Socket.io (skeleton)
+- **react-hook-form** + Zod + i18next
+
+## Quick Start
 
 ```bash
+cd pp191225_web_next
+cp .env.example .env.local
+# Edit .env.local with your Firebase & API credentials
+
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (public)/           # Auth pages (no sidebar)
+│   ├── (app)/              # Protected pages (sidebar layout)
+│   ├── providers.tsx       # Redux, i18n, toast
+│   └── layout.tsx
+├── views/                  # Page views
+├── components/
+├── hooks/
+├── store/
+├── services/
+├── utils/
+├── types/
+├── constants/
+├── config/
+├── lib/
+└── socket/                 # Socket.io skeleton (empty modules)
+```
 
-## Learn More
+## Routes
 
-To learn more about Next.js, take a look at the following resources:
+| Path                           | Description             |
+| ------------------------------ | ----------------------- |
+| `/login`                       | Login                   |
+| `/signup`                      | Register                |
+| `/`                            | Dashboard (placeholder) |
+| `/tasks`, `/focus`, `/profile` | Stub pages              |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Prefix: `NEXT_PUBLIC_*` (see `.env.example`)
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run dev          # Start dev server
+npm run build        # Production build
+npm run lint         # ESLint
+npm run type-check   # TypeScript check
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Adding Features
+
+Follow `CODING_GUIDE.md` in `pp191225_web`, with routes in `src/app/**/page.tsx` instead of React Router.
+
+**Phase 5 (later):** Socket.io, LiveKit, matchmaking, full task CRUD.
+
+## Notes
+
+- Client-first SPA — auth uses `localStorage` tokens.
+- Protected routes via `ProtectedLayout` in `(app)/layout.tsx`.

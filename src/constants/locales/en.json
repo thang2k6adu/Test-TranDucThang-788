@@ -1,0 +1,63 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "rememberMe": "Remember me",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signInWithGoogle": "Sign in with Google",
+    "signInWithFacebook": "Sign in with Facebook",
+    "signInWithGitHub": "Sign in with GitHub"
+  },
+  "pages": {
+    "home": "Home",
+    "about": "About",
+    "dashboard": "Dashboard",
+    "notFound": "Page Not Found",
+    "notFoundDescription": "The page you are looking for does not exist."
+  },
+  "tasks": {
+    "selectTask": "Select Task",
+    "selectTaskDescription": "You've found a room! Choose a task you want to work on.",
+    "noTasksAvailable": "No tasks available. Create a task first.",
+    "confirmSelection": "Confirm Selection",
+    "currentTask": "Current Task",
+    "timeSpent": "Time Spent",
+    "progress": "Progress",
+    "estimate": "Estimate",
+    "totalSpent": "Total Spent",
+    "stop": "Stop",
+    "sessionStopped": "Session Stopped",
+    "taskCompleted": "Task Completed!",
+    "congratulations": "Congratulations!",
+    "greatWork": "Great Work!",
+    "duration": "Duration",
+    "expEarned": "EXP Earned",
+    "progressUpdate": "Progress Update",
+    "taskCompletedMessage": "You've completed this task! Well done!",
+    "stayInRoom": "Stay in Room",
+    "selectNewTask": "Select New Task",
+    "leaveAndMatchmaking": "Leave & Find New Partner"
+  }
+}

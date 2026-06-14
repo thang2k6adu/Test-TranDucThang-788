@@ -1,0 +1,63 @@
+{
+  "common": {
+    "welcome": "Chào mừng",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "previous": "Trước",
+    "submit": "Gửi",
+    "close": "Đóng"
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "signup": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "resetPassword": "Đặt lại mật khẩu",
+    "rememberMe": "Ghi nhớ đăng nhập",
+    "noAccount": "Chưa có tài khoản?",
+    "hasAccount": "Đã có tài khoản?",
+    "signInWithGoogle": "Đăng nhập bằng Google",
+    "signInWithFacebook": "Đăng nhập bằng Facebook",
+    "signInWithGitHub": "Đăng nhập bằng GitHub"
+  },
+  "pages": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "dashboard": "Bảng điều khiển",
+    "notFound": "Không tìm thấy trang",
+    "notFoundDescription": "Trang bạn đang tìm kiếm không tồn tại."
+  },
+  "tasks": {
+    "selectTask": "Chọn Task",
+    "selectTaskDescription": "Bạn đã tìm được phòng! Hãy chọn task muốn làm.",
+    "noTasksAvailable": "Không có task nào. Tạo task trước.",
+    "confirmSelection": "Xác Nhận Chọn",
+    "currentTask": "Task Hiện Tại",
+    "timeSpent": "Thời Gian Đã Làm",
+    "progress": "Tiến Độ",
+    "estimate": "Ước Tính",
+    "totalSpent": "Tổng Thời Gian",
+    "stop": "Dừng",
+    "sessionStopped": "Phiên Đã Dừng",
+    "taskCompleted": "Hoàn Thành Task!",
+    "congratulations": "Chúc Mừng!",
+    "greatWork": "Làm Tốt Lắm!",
+    "duration": "Thời Lượng",
+    "expEarned": "EXP Nhận Được",
+    "progressUpdate": "Cập Nhật Tiến Độ",
+    "taskCompletedMessage": "Bạn đã hoàn thành task này! Xuất sắc!",
+    "stayInRoom": "Ở Lại Phòng",
+    "selectNewTask": "Chọn Task Mới",
+    "leaveAndMatchmaking": "Rời Phòng & Tìm Đối Tác Mới"
+  }
+}
