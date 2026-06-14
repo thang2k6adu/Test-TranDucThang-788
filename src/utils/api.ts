@@ -1,17 +1,10 @@
-/* eslint-disable */
 import axios, {
   AxiosInstance,
   AxiosError,
   AxiosResponse,
   AxiosRequestConfig,
-  InternalAxiosRequestConfig,
 } from "axios";
 import toast from "react-hot-toast";
-import { TOKEN_STORAGE_KEYS } from "@/constants";
-import {
-  handleSessionExpired,
-  isAuthRefreshRequest,
-} from "@/utils/authSession";
 
 import { env } from "@/env";
 
@@ -19,8 +12,6 @@ const API_BASE_URL = env.apiBaseUrl;
 
 class ApiClient {
   private client: AxiosInstance;
-  private isRefreshing = false;
-  private failedQueue: Array<(token: string) => void> = [];
 
   constructor() {
     this.client = axios.create({
@@ -37,122 +28,10 @@ class ApiClient {
     this.setupInterceptors();
   }
 
-  private processQueue = (
-    error: AxiosError | null,
-    token: string | null = null,
-  ) => {
-    this.failedQueue.forEach((prom) => {
-      if (error) {
-        // Do nothing - let it fail
-      } else {
-        prom(token || "");
-      }
-    });
-    this.isRefreshing = false;
-    this.failedQueue = [];
-  };
-
   private setupInterceptors() {
-    // Request interceptor
-    this.client.interceptors.request.use(
-      (config: InternalAxiosRequestConfig) => {
-        const accessToken = localStorage.getItem(
-          TOKEN_STORAGE_KEYS.ACCESS_TOKEN,
-        );
-        if (accessToken && config.headers) {
-          config.headers.Authorization = `Bearer ${accessToken}`;
-        }
-        return config;
-      },
-      (error: AxiosError) => {
-        return Promise.reject(error);
-      },
-    );
-
-    // Response interceptor
     this.client.interceptors.response.use(
       (response) => response,
-      async (error: AxiosError) => {
-        const originalRequest = error.config as InternalAxiosRequestConfig & {
-          _retry?: boolean;
-        };
-
-        if (error.response?.status === 401 && !originalRequest._retry) {
-          const requestUrl = originalRequest.url ?? "";
-
-          if (isAuthRefreshRequest(requestUrl)) {
-            this.isRefreshing = false;
-            this.failedQueue = [];
-            await handleSessionExpired();
-            return Promise.reject(error);
-          }
-
-          if (this.isRefreshing) {
-            // Queue request while refreshing
-            return new Promise((resolve) => {
-              this.failedQueue.push((token: string) => {
-                originalRequest.headers.Authorization = `Bearer ${token}`;
-                resolve(this.client(originalRequest));
-              });
-            });
-          }
-
-          originalRequest._retry = true;
-          this.isRefreshing = true;
-
-          try {
-            const refreshToken = localStorage.getItem(
-              TOKEN_STORAGE_KEYS.REFRESH_TOKEN,
-            );
-            if (!refreshToken) {
-              throw new Error("No refresh token available");
-            }
-
-            const { authService } = await import("@/services/authService");
-            const response = await authService.refreshToken(refreshToken);
-
-            if (response.error) {
-              throw new Error(response.message || "Refresh token failed");
-            }
-
-            const refreshed = response.data?.accessToken;
-            if (refreshed && response.data) {
-              const { accessToken, expiresIn } = response.data;
-              localStorage.setItem(
-                TOKEN_STORAGE_KEYS.ACCESS_TOKEN,
-                accessToken,
-              );
-              localStorage.setItem(
-                TOKEN_STORAGE_KEYS.TOKEN_EXPIRES_AT,
-                (Date.now() + expiresIn * 1000).toString(),
-              );
-
-              try {
-                const { store } = await import("@/store");
-                const { updateAccessToken } =
-                  await import("@/store/slices/authSlice");
-                store.dispatch(updateAccessToken({ accessToken, expiresIn }));
-              } catch {
-                // Redux sync is best-effort
-              }
-
-              originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-              this.processQueue(null, accessToken);
-              return this.client(originalRequest);
-            }
-
-            throw new Error("Refresh token response missing access token");
-          } catch (_err) {
-            this.processQueue(error as AxiosError, null);
-            await handleSessionExpired();
-          } finally {
-            this.isRefreshing = false;
-          }
-
-          return Promise.reject(error);
-        }
-
-        // Handle other errors
+      (error: AxiosError) => {
         if (error.response) {
           const status = error.response.status;
           const message =
@@ -160,9 +39,6 @@ class ApiClient {
             "An error occurred";
 
           switch (status) {
-            case 401:
-              void handleSessionExpired();
-              break;
             case 403:
               toast.error("You do not have permission to perform this action.");
               break;

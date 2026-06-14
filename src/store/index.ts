@@ -11,7 +11,6 @@ import {
 } from "redux-persist";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { combineReducers } from "@reduxjs/toolkit";
-import authReducer from "./slices/authSlice";
 import themeReducer from "./slices/themeSlice";
 import videoReducer from "./slices/videoSlice";
 
@@ -26,21 +25,14 @@ const storage =
     ? createWebStorage("local")
     : createNoopStorage();
 
-const authPersistConfig = {
-  key: "auth",
-  storage,
-  blacklist: ["user", "isLoading", "isLoadingProfile", "error"],
-};
-
 const rootPersistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["theme"],
+  whitelist: ["theme", "video"],
 };
 
 const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
   theme: themeReducer,
   video: videoReducer,
 });

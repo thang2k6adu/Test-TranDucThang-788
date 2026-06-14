@@ -1,11 +1,11 @@
 export const dynamic = "force-dynamic";
 
-import { ProtectedLayout } from "@/components/ProtectedLayout";
+import { Layout } from "@/layout/AppLayout";
 
 export default function AppGroupLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <ProtectedLayout>{children}</ProtectedLayout>;
+  return <Layout>{children}</Layout>;
 }

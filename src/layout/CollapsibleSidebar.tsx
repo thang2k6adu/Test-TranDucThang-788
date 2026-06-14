@@ -1,36 +1,16 @@
 "use client";
 
 import * as React from "react";
-import {
-  LuCompass,
-  LuHouse as Home,
-  LuLogOut as LogOut,
-  LuUser as User,
-  LuUser as UserIcon,
-} from "react-icons/lu";
+import { LuCompass, LuHouse as Home, LuUser as User } from "react-icons/lu";
 import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { logoutThunk } from "@/store/thunks/authThunks";
 import { ROUTES } from "@/constants";
-import { getDisplayName, getInitials } from "@/types/user";
 
 export default function CollapsibleSidebar() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  const dispatch = useAppDispatch();
-  const { user } = useAppSelector((state) => state.auth);
-
-  const displayName = user ? getDisplayName(user) : "Guest";
-  const initials = user ? getInitials(user) : "G";
 
   const navItems = [
     { icon: Home, label: "Home", path: ROUTES.HOME },
@@ -80,70 +60,6 @@ export default function CollapsibleSidebar() {
             );
           })}
         </nav>
-      </div>
-
-      <div
-        className={cn(
-          "mt-auto flex flex-col gap-2 border-t border-border p-4",
-          isCollapsed && "items-center",
-        )}
-      >
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="ghost"
-              className={cn(
-                "h-auto rounded-full p-2",
-                !isCollapsed && "w-full justify-start px-3",
-              )}
-            >
-              <div
-                className={cn(
-                  "flex items-center",
-                  isCollapsed ? "justify-center" : "gap-3",
-                )}
-              >
-                <Avatar className="h-9 w-9">
-                  <AvatarImage
-                    src={user?.avatar ?? undefined}
-                    alt={displayName}
-                    className="h-full w-full object-cover"
-                  />
-                  <AvatarFallback>{initials}</AvatarFallback>
-                </Avatar>
-                {!isCollapsed && (
-                  <span className="text-sm font-medium">{displayName}</span>
-                )}
-              </div>
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-56 p-2" align="start" side="right">
-            <div className="flex flex-col gap-1">
-              <div className="px-2 py-1.5 text-sm font-medium text-muted-foreground">
-                Account
-              </div>
-              <Button
-                variant="ghost"
-                className="w-full justify-start rounded-xl text-sm font-normal"
-                onClick={() => router.push(ROUTES.PROFILE)}
-              >
-                <UserIcon className="mr-2 h-4 w-4" />
-                Profile
-              </Button>
-              <Button
-                variant="ghost"
-                className="w-full justify-start rounded-xl text-sm font-normal text-destructive hover:bg-destructive/10 hover:text-destructive"
-                onClick={async () => {
-                  await dispatch(logoutThunk());
-                  router.push(ROUTES.LOGIN);
-                }}
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Log out
-              </Button>
-            </div>
-          </PopoverContent>
-        </Popover>
       </div>
     </div>
   );

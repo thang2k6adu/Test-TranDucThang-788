@@ -2,6 +2,7 @@
 
 import React from "react";
 import { usePathname } from "next/navigation";
+import BottomNav from "@/layout/BottomNav";
 import CollapsibleSidebar from "@/layout/CollapsibleSidebar";
 import { ROUTES } from "@/constants";
 import { cn } from "@/lib/utils";
@@ -17,7 +18,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <div className="flex h-screen w-full overflow-hidden bg-background">
-      <CollapsibleSidebar />
+      <div className="hidden h-full md:flex">
+        <CollapsibleSidebar />
+      </div>
 
       <main className="flex min-h-0 flex-1 flex-col">
         <section
@@ -28,6 +31,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
         >
           {children}
         </section>
+        <BottomNav />
       </main>
     </div>
   );

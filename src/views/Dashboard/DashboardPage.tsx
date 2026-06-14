@@ -1,19 +1,15 @@
 "use client";
 
-import { useAppSelector } from "@/store/hooks";
-import { getDisplayName } from "@/types/user";
-
 export default function HomePage() {
-  const { user } = useAppSelector((state) => state.auth);
-  const name = user ? getDisplayName(user) : "there";
-
   return (
     <div className="rounded-lg border bg-card p-8">
-      <h1 className="text-2xl font-semibold">Welcome, {name}</h1>
+      <h1 className="text-2xl font-semibold">Welcome</h1>
       <p className="mt-2 text-muted-foreground">
-        Next.js App Router boilerplate — add features in{" "}
-        <code className="text-sm">src/views/</code> and wire routes in{" "}
-        <code className="text-sm">src/app/</code>.
+        Mở{" "}
+        <a href="/explore" className="font-medium text-foreground underline">
+          Khám phá
+        </a>{" "}
+        để xem feed video dọc kiểu TikTok.
       </p>
     </div>
   );
