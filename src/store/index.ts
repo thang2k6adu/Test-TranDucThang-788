@@ -13,6 +13,7 @@ import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 import { combineReducers } from "@reduxjs/toolkit";
 import authReducer from "./slices/authSlice";
 import themeReducer from "./slices/themeSlice";
+import videoReducer from "./slices/videoSlice";
 
 const createNoopStorage = () => ({
   getItem: () => Promise.resolve(null),
@@ -41,6 +42,7 @@ const rootPersistConfig = {
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   theme: themeReducer,
+  video: videoReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

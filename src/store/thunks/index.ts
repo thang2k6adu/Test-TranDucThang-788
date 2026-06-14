@@ -11,3 +11,12 @@ export {
   resetPasswordThunk,
   getUserProfileThunk,
 } from "./authThunks";
+
+export {
+  fetchVideoFeedThunk,
+  fetchVideoByIdThunk,
+  likeVideoThunk,
+  unlikeVideoThunk,
+} from "./videoThunks";
+
+export type { FetchVideoFeedArgs } from "./videoThunks";
