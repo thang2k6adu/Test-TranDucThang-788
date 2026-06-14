@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { LuPause, LuPlay } from "react-icons/lu";
 import { cn } from "@/lib/utils";
 
 interface VideoPlayerProps {
   src: string;
+  isActive?: boolean;
   className?: string;
 }
 
@@ -25,7 +26,6 @@ const getVideoFitMode = (width: number, height: number): VideoFitMode => {
 
   const videoAspectRatio = width / height;
 
-  // Wider than the 9:16 frame — letterbox instead of cropping sides.
   if (videoAspectRatio > FRAME_ASPECT_RATIO * 1.05) {
     return "contain";
   }
@@ -33,7 +33,11 @@ const getVideoFitMode = (width: number, height: number): VideoFitMode => {
   return "cover";
 };
 
-export function VideoPlayer({ src, className }: VideoPlayerProps) {
+export function VideoPlayer({
+  src,
+  isActive = false,
+  className,
+}: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [indicator, setIndicator] = useState<PlayPauseIndicator | null>(null);
@@ -51,6 +55,20 @@ export function VideoPlayer({ src, className }: VideoPlayerProps) {
 
     setFitMode(getVideoFitMode(video.videoWidth, video.videoHeight));
   }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) {
+      return;
+    }
+
+    if (isActive) {
+      void video.play().catch(() => setIsPlaying(false));
+      return;
+    }
+
+    video.pause();
+  }, [isActive]);
 
   const togglePlay = useCallback(() => {
     const video = videoRef.current;
