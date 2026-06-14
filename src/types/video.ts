@@ -5,3 +5,11 @@ export interface VideoFeedItem {
   description: string;
   likesCount: number;
 }
+
+export interface LikeVideoData {
+  videoId: string;
+  likesCount: number;
+  liked: boolean;
+}
+
+export type UnlikeVideoData = LikeVideoData;

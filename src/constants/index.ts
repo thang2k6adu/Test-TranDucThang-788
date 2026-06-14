@@ -26,6 +26,11 @@ export const API_ENDPOINTS = {
     PROFILE: "/users/profile",
     UPDATE_PROFILE: "/users/profile",
   },
+  VIDEOS: {
+    FEED: "/videos/feed",
+    DETAIL: (id: string) => `/videos/${id}`,
+    LIKE: (id: string) => `/videos/${id}/like`,
+  },
 } as const;
 
 export const TOKEN_STORAGE_KEYS = {
