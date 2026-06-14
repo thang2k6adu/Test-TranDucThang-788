@@ -1,6 +1,7 @@
 "use client";
 
 import type { VideoFeedItem } from "@/types/video";
+import { VideoFrame } from "./VideoFrame";
 import { VideoOverlay } from "./VideoOverlay";
 import { VideoPlayer } from "./VideoPlayer";
 
@@ -19,7 +20,7 @@ export function VideoCard({
 }: VideoCardProps) {
   return (
     <article className="relative flex h-full min-h-full w-full shrink-0 snap-start snap-always items-start justify-center bg-muted pt-2 md:pt-3">
-      <div className="relative aspect-[9/16] h-full max-h-full w-auto max-w-[480px] overflow-hidden rounded-xl shadow-2xl shadow-black/50">
+      <VideoFrame>
         <VideoPlayer src={video.videoUrl} />
         <VideoOverlay
           authorName={video.authorName}
@@ -29,7 +30,7 @@ export function VideoCard({
           isLiking={isLiking}
           onToggleLike={onToggleLike}
         />
-      </div>
+      </VideoFrame>
     </article>
   );
 }
