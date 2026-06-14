@@ -9,8 +9,6 @@ export const env = {
   apiBaseUrl,
   socketUrl,
   assetBaseUrl: process.env.NEXT_PUBLIC_ASSET_BASE_URL || "",
-  livekitUrl:
-    process.env.NEXT_PUBLIC_LIVEKIT_URL || "wss://your-livekit-server.com",
   firebase: {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "",
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "",

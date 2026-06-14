@@ -75,7 +75,7 @@ export function RegisterFormSection() {
       ).unwrap();
 
       toast.success("Account created successfully!");
-      router.push("/dashboard");
+      router.push(ROUTES.HOME);
     } catch (err) {
       console.error(err);
       if (err === "email_not_verified") {
@@ -116,7 +116,7 @@ export function RegisterFormSection() {
             </h1>
             <p className="text-body-regular text-gray-500 leading-relaxed">
               Turn distractions into meaningful progress every single day with
-              Focushub.
+              App.
             </p>
           </div>
           <form

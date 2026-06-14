@@ -11,16 +11,7 @@ export const userService = {
 
   updateProfile: (
     data: Partial<
-      Pick<
-        UserProfile,
-        | "firstName"
-        | "lastName"
-        | "contactEmail"
-        | "avatar"
-        | "work"
-        | "major"
-        | "bio"
-      >
+      Pick<UserProfile, "firstName" | "lastName" | "contactEmail" | "avatar">
     >,
   ): Promise<ApiResponse<UserProfile>> =>
     apiClient.patch<ApiResponse<UserProfile>>(

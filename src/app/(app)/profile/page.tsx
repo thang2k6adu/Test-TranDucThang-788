@@ -7,9 +7,6 @@ export const metadata: Metadata = {
 
 export default function ProfilePage() {
   return (
-    <PlaceholderPage
-      title="Profile"
-      description="User profile settings will go here."
-    />
+    <PlaceholderPage title="Profile" description="Add profile settings here." />
   );
 }

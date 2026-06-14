@@ -109,7 +109,7 @@ export function LoginFormSection() {
             </h1>
             <p className="text-body-regular text-gray-500 leading-relaxed">
               Turn distractions into meaningful progress every single day with
-              Focushub.
+              App.
             </p>
           </div>
           <form

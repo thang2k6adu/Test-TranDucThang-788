@@ -12,6 +12,7 @@ import {
   signInWithGitHubThunk,
   forgotPasswordThunk,
 } from "@/store/thunks/authThunks";
+import { ROUTES } from "@/constants";
 import toast from "react-hot-toast";
 
 export const useAuth = () => {
@@ -25,7 +26,7 @@ export const useAuth = () => {
     const result = await dispatch(loginThunk(credentials));
     if (loginThunk.fulfilled.match(result)) {
       toast.success("Login successful!");
-      router.push("/dashboard");
+      router.push(ROUTES.HOME);
     } else if (loginThunk.rejected.match(result)) {
       toast.error(result.payload || "Login failed");
     }
@@ -35,7 +36,7 @@ export const useAuth = () => {
     const result = await dispatch(signUpThunk(credentials));
     if (signUpThunk.fulfilled.match(result)) {
       toast.success("Account created successfully!");
-      router.push("/dashboard");
+      router.push(ROUTES.HOME);
     } else if (signUpThunk.rejected.match(result)) {
       toast.error(result.payload || "Sign up failed");
     }
@@ -45,10 +46,10 @@ export const useAuth = () => {
     const result = await dispatch(logoutThunk());
     if (logoutThunk.fulfilled.match(result)) {
       toast.success("Logged out successfully");
-      router.push("/");
+      router.push(ROUTES.LOGIN);
     } else if (logoutThunk.rejected.match(result)) {
       toast.error("Logout failed");
-      router.push("/");
+      router.push(ROUTES.LOGIN);
     }
   };
 
@@ -56,10 +57,9 @@ export const useAuth = () => {
     const result = await dispatch(signInWithGoogleThunk());
     if (signInWithGoogleThunk.fulfilled.match(result)) {
       toast.success("Login successful!");
-      router.push("/dashboard");
+      router.push(ROUTES.HOME);
     } else if (signInWithGoogleThunk.rejected.match(result)) {
-      const msg = result.payload || "Google sign in failed";
-      toast.error(msg);
+      toast.error(result.payload || "Google sign in failed");
     }
   };
 
@@ -67,10 +67,9 @@ export const useAuth = () => {
     const result = await dispatch(signInWithFacebookThunk());
     if (signInWithFacebookThunk.fulfilled.match(result)) {
       toast.success("Login successful!");
-      router.push("/dashboard");
+      router.push(ROUTES.HOME);
     } else if (signInWithFacebookThunk.rejected.match(result)) {
-      const msg = result.payload || "Facebook sign in failed";
-      toast.error(msg);
+      toast.error(result.payload || "Facebook sign in failed");
     }
   };
 
@@ -78,10 +77,9 @@ export const useAuth = () => {
     const result = await dispatch(signInWithGitHubThunk());
     if (signInWithGitHubThunk.fulfilled.match(result)) {
       toast.success("Login successful!");
-      router.push("/dashboard");
+      router.push(ROUTES.HOME);
     } else if (signInWithGitHubThunk.rejected.match(result)) {
-      const msg = result.payload || "GitHub sign in failed";
-      toast.error(msg);
+      toast.error(result.payload || "GitHub sign in failed");
     }
   };
 

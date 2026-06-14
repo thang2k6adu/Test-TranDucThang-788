@@ -4,10 +4,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Focus Hub",
-    template: "%s | Focus Hub",
+    default: "App",
+    template: "%s | App",
   },
-  description: "Collaborative focus sessions, tasks, and video rooms",
+  description: "Next.js App Router boilerplate",
 };
 
 export default function RootLayout({

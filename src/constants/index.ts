@@ -5,26 +5,7 @@ export const ROUTES = {
   FORGOT_PASSWORD: "/forgot-password",
   RESET_PASSWORD: "/reset-password",
   VERIFY_EMAIL: "/verify-email",
-
-  DASHBOARD: "/",
-  TASKS: "/tasks",
-  FOCUS: "/focus",
-  FOCUS_ROOM: "/focus-room",
   PROFILE: "/profile",
-
-  V2: {
-    HOME: "/",
-    LOGIN: "/login",
-    SIGNUP: "/signup",
-    FORGOT_PASSWORD: "/forgot-password",
-    RESET_PASSWORD: "/reset-password",
-    VERIFY_EMAIL: "/verify-email",
-
-    DASHBOARD: "/",
-    TASKS: "/tasks",
-    FOCUS: "/focus",
-    FOCUS_ROOM: "/focus-room",
-  },
 } as const;
 
 export const USER_ROLES = {
@@ -41,37 +22,9 @@ export const API_ENDPOINTS = {
     FIREBASE_LOGIN: "/auth/firebase/login",
     SEND_VERIFICATION_EMAIL: "/auth/send-verification-email",
   },
-  TASKS: {
-    LIST: "/tasks",
-    CREATE: "/tasks",
-    STATS: "/tasks/stats",
-    DETAIL: (id: string) => `/tasks/${id}`,
-    UPDATE: (id: string) => `/tasks/${id}`,
-    DELETE: (id: string) => `/tasks/${id}`,
-    ACTIVATE: (id: string) => `/tasks/${id}/activate`,
-    DEACTIVATE: (id: string) => `/tasks/${id}/deactivate`,
-    COMPLETE: (id: string) => `/tasks/${id}/complete`,
-    ACTIVE: "/tasks/active",
-  },
-  MATCHMAKING: {
-    JOIN: "/matchmaking/join",
-    CANCEL: "/matchmaking/cancel",
-    STATUS: "/matchmaking/status",
-    STATS: "/matchmaking/stats",
-  },
-  ROOMS: {
-    CURRENT: "/rooms/current",
-    PUBLIC: "/rooms/public",
-    JOIN: (roomId: string) => `/rooms/${roomId}/join`,
-    DETAIL: (roomId: string) => `/rooms/${roomId}`,
-    LEAVE: (roomId: string) => `/rooms/${roomId}/leave`,
-  },
   USERS: {
     PROFILE: "/users/profile",
     UPDATE_PROFILE: "/users/profile",
-  },
-  STORAGE: {
-    UPLOAD: "/storage/upload",
   },
 } as const;
 
@@ -89,6 +42,4 @@ import { env } from "@/env";
 
 export const SOCKET_URL = env.socketUrl;
 
-// Export theme constants
 export * from "./form-errors";
-export * from "./theme";
